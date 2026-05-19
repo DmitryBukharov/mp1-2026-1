@@ -168,7 +168,7 @@ public:
 		ships.clear();
 	}
 
-	bool canPlaceShip(int x, int y, int length, int horizontal) {
+	bool canPlaceShip(int x, int y, int length, bool horizontal) {
 		if (horizontal) {
 			if (x + length - 1 >= 10) {
 				return false;
@@ -189,7 +189,7 @@ public:
 			}
 			else {
 				curX = x;
-				curY = y + 1;
+				curY = y + i;
 			}
 
 			if (!isInside(curX, curY)) {
@@ -233,7 +233,7 @@ public:
 			return INVALID;
 		}
 		if (grid[x][y] == 3 || grid[x][y] == 2) {
-			return INVALID;
+			return MISS;
 		}
 		if (grid[x][y] == 0) {
 			grid[x][y] = 3;
@@ -259,6 +259,7 @@ public:
 			markSunkShip(x, y);
 			return KILL;
 		}
+		
 	}
 	bool allShipsSunk() {
 		for (Ship& ship : ships) {
@@ -626,7 +627,7 @@ public:
 		cout << "- You have 4 type of ships: 4, 3, 3, 2, 2, 2, 1, 1, 1, 1\n";
 		cout << "- Ships cannot touch each other\n";
 		cout << "- First player to sink all enemy ships wins\n";
-		cout << "- You go first!\n";\
+		cout << "- You go first!\n";
 		cout << "=====================================\n\n";
 
 		human.placeShips();
